@@ -18,16 +18,36 @@ function AboutSection() {
           {/* Text Content */}
           <AnimatedSection delay={0.1}>
             <div className="flex flex-col justify-center">
-              <p className="text-secondary leading-relaxed mb-4">
-                I'm a husband, father, Air Force veteran, software engineer, and creator.
+              <p className="text-primary font-semibold tracking-wider uppercase text-sm mb-5">
+                Father. Veteran. Builder. Student of life.
               </p>
               <p className="text-secondary leading-relaxed mb-4">
-                Forever Human was built from the belief that we're all a work in progress.
-                Through raw conversations and real stories, this show is about becoming the
-                best version of yourself — and helping others do the same.
+                I'm Drake — a father, Air Force veteran, software engineer, and creator behind Forever Human.
+              </p>
+              <p className="text-secondary leading-relaxed mb-4">
+                After 12 years in the military, years in tech, and a lot of life lived between discipline,
+                failure, growth, fatherhood, and starting over, I realized something simple:
+              </p>
+              <p className="text-primary font-medium leading-relaxed mb-1 italic">
+                Most of us are not broken.
+              </p>
+              <p className="text-primary font-medium leading-relaxed mb-4 italic">
+                We're becoming.
+              </p>
+              <p className="text-secondary leading-relaxed mb-4">
+                Forever Human was built for that process. This show is about the conversations
+                we usually have in private — discipline, identity, purpose, relationships, growth,
+                pressure, rebuilding, and what it really takes to become the person you keep
+                saying you want to be.
+              </p>
+              <p className="text-primary font-medium leading-relaxed mb-1 italic">
+                Not from a place of perfection.
+              </p>
+              <p className="text-primary font-medium leading-relaxed mb-4 italic">
+                From a place of progress.
               </p>
               <p className="text-secondary leading-relaxed mb-6">
-                We're here to grow, to lead, and to leave something meaningful behind.
+                Because being human means learning, falling short, adjusting, and still choosing to move forward.
               </p>
               <div>
                 <Button href="#" variant="primary" className="text-sm">

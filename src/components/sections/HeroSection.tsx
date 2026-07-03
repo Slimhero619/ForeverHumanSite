@@ -2,6 +2,7 @@ import { Play, Music } from 'lucide-react'
 import Button from '../ui/Button'
 import AnimatedSection from '../ui/AnimatedSection'
 import heroBackground from '../../assets/images/hero-background.png'
+import foreverHumanLogo from '../../assets/images/main-logo-img.png'
 
 function HeroSection() {
   return (
@@ -25,20 +26,22 @@ function HeroSection() {
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 w-full">
         <AnimatedSection>
-          {/* FH Monogram */}
-          <div className="w-14 h-14 border border-accent/50 rounded-sm flex items-center justify-center mb-6">
-            <span className="font-display text-2xl text-accent leading-none">FH</span>
-          </div>
+          {/* Hidden h1 for SEO/accessibility */}
+          <h1 id="hero-title" className="sr-only">Forever Human Podcast</h1>
 
-          {/* Title */}
-          <h1
-            id="hero-title"
-            className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wide text-primary leading-none mb-4"
-          >
-            FOREVER
-            <br />
-            HUMAN
-          </h1>
+          {/* Logo — sole hero title, large and left-aligned */}
+          <img
+            src={foreverHumanLogo}
+            alt="Forever Human"
+            style={{
+              width: 'clamp(700px, 80vw, 1400px)',
+              minWidth: '700px',
+              maxWidth: 'none',
+              height: 'auto',
+              filter: 'invert(72%) sepia(45%) saturate(520%) hue-rotate(4deg) brightness(100%)',
+              marginBottom: '1.5rem',
+            }}
+          />
 
           {/* Gold accent line */}
           <div className="w-16 h-0.5 bg-accent mb-6" />

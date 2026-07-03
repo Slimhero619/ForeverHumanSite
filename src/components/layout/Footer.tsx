@@ -1,5 +1,5 @@
-import * as Icons from 'lucide-react'
-import { navItems, socialLinks } from '../../data/navigation'
+import { PlaySquare, Camera, Mail } from 'lucide-react'
+import { navItems } from '../../data/navigation'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
@@ -11,7 +11,7 @@ function Footer() {
           {/* Brand Column */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 border border-accent/60 rounded-sm flex items-center justify-center">
+              <div className="w-9 h-9 border border-accent/60 rounded-sm items-center justify-center hidden">
                 <span className="font-display text-lg text-accent leading-none">FH</span>
               </div>
               <span className="font-display text-lg tracking-wider text-primary">
@@ -61,32 +61,33 @@ function Footer() {
             </div>
           </div>
 
-          {/* Social Column */}
-          <div>
-            <h3 className="text-xs font-semibold text-primary uppercase tracking-wider mb-4">
-              Follow
-            </h3>
-            <div className="flex flex-wrap gap-3">
-              {socialLinks.map((link) => {
-                const IconComponent = Icons[link.icon as keyof typeof Icons] as React.ComponentType<{
-                  size?: number
-                  className?: string
-                }> | undefined
-
-                return (
-                  <a
-                    key={link.name}
-                    href={link.url}
-                    className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-secondary hover:text-accent hover:border-accent/50 transition-all duration-200"
-                    aria-label={link.name}
-                    target={link.url.startsWith('http') ? '_blank' : undefined}
-                    rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  >
-                    {IconComponent ? <IconComponent size={16} /> : <span>{link.icon}</span>}
-                  </a>
-                )
-              })}
-            </div>
+          {/* Social Icons */}
+          <div className="flex items-start gap-3 pt-1">
+            <a
+              href="https://www.youtube.com/@foreverhumanpodcast"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-secondary hover:text-accent hover:border-accent/50 transition-all duration-200"
+            >
+              <PlaySquare size={17} />
+            </a>
+            <a
+              href="https://www.instagram.com/foreverhumanpodcast/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-secondary hover:text-accent hover:border-accent/50 transition-all duration-200"
+            >
+              <Camera size={17} />
+            </a>
+            <a
+              href="mailto:slimzztv@outlook.com"
+              aria-label="Email"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-secondary hover:text-accent hover:border-accent/50 transition-all duration-200"
+            >
+              <Mail size={17} />
+            </a>
           </div>
         </div>
 

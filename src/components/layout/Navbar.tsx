@@ -23,17 +23,16 @@ function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-bg/80 backdrop-blur-xl border-b border-border/50'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-3" aria-label="Forever Human home">
-            <div className="w-9 h-9 border border-accent/60 rounded-sm flex items-center justify-center">
+            <div className="w-9 h-9 border border-accent/60 rounded-sm items-center justify-center hidden">
               <span className="font-display text-lg text-accent leading-none">FH</span>
             </div>
             <span className="font-display text-lg tracking-wider text-primary hidden sm:block">
