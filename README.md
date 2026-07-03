@@ -18,6 +18,14 @@ npm run dev
 npm run build
 ```
 
+### 🔑 Environment Variables
+The application queries Notion via a serverless API endpoint. Set up the following in a `.env.local` file at the root:
+```env
+NOTION_TOKEN=your_notion_token_here
+NOTION_DATABASE_ID=your_notion_database_id_here
+```
+*(Note: These are kept strictly server-side and never exposed to the frontend browser bundle).*
+
 ---
 
 ## 🎨 Design & Aesthetic
@@ -35,7 +43,7 @@ npm run build
 
 The application follows a modular, reusable, and responsive structure:
 
-### 🌟 Page Sections
+### 🌟 Page Sections & Views
 - **Hero**: Full-screen cinematic landing featuring the Forever Human logo (`main-logo-img.png`) as the primary title element, gold-tinted via CSS filter to match the site accent color. Includes subtitle and CTA buttons for podcast platforms.
 - **Latest Episode**: Large feature area showing the newest episode with show notes, play buttons, and tags.
 - **Episodes Grid**: Interactive filtering grid listing older episodes by topic or tag (e.g., *Mindset*, *Science*, *Human Nature*).
@@ -45,7 +53,8 @@ The application follows a modular, reusable, and responsive structure:
 - **Gallery**: Dynamic carousel/grid showcasing workspace, studio, and outdoor personal brand photos.
 - **Books & Thoughts (Side-by-Side)**:
   - **Books**: Custom horizontal slider highlighting books that changed the host's perspective.
-  - **Latest Thoughts**: Clean card list of recent blog posts or newsletter entries.
+  - **Latest Thoughts**: Dynamic card list loading the **latest 3 published thoughts** directly from Notion.
+- **All Thoughts Listing (`/thoughts`)**: Dedicated route showing all published thoughts queried from Notion. Features a return-to-home button, animations, categories, and loading/error feedback.
 - **Newsletter Sign-up**: A premium opt-in form with success state animations.
 - **Footer**: Unified navigation links, social icons (YouTube, Instagram, Email), and copyright.
 
@@ -53,17 +62,33 @@ The application follows a modular, reusable, and responsive structure:
 
 ## 🛠️ Technology Stack
 
-- **Framework**: React 18+ (Functional Components with Hooks)
-- **Tooling**: Vite (for lightning-fast HMR and bundling)
+- **Framework**: React 19 (Functional Components with Hooks)
+- **Tooling**: Vite 8 (for lightning-fast HMR and bundling)
 - **Language**: TypeScript (Strict typing for components and data interfaces)
 - **Styling**: Tailwind CSS v4 (Sleek utilities and optimized runtime)
 - **Animations**: Framer Motion (Smooth scroll/fade entry-effects and transitions)
 - **Icons**: Lucide React (Clean vector iconography)
-- **Routing**: React Router (Route infrastructure ready for expansion)
+- **Routing**: React Router v7 (Route infrastructure for pages)
+- **Integrations**: `@notionhq/client` (Official SDK for querying Notion database)
 
 ---
 
 ## 📋 Changelog
+
+### 2026-07-03 — Notion API Integration & Page Route
+
+#### Backend & API
+- Installed `@notionhq/client` v5 for Notion database connectivity.
+- Created `/api/thoughts` serverless endpoint utilizing the new `notion.dataSources.query` API.
+- Configured inline server middleware in `vite.config.ts` to mock and serve the `/api/thoughts` endpoint locally for the Vite dev server using `.env.local` bindings.
+- Built a secure querying query that filters by `Status = Published` and sorts by `Date` descending.
+
+#### Frontend Routing & Views
+- Created the dedicated listing view: `ThoughtsPage` (`/thoughts`) showing all published thoughts.
+- Integrated dynamic loading spinner (using CSS animation) and error handlers that display detailed API errors.
+- Wired the `/thoughts` route into `App.tsx` routing logic.
+- Redesigned `ThoughtCard` to display categories, UTC-formatted dates, excerpts, and gold featured badges.
+- Updated `ThoughtsSection` on the homepage to pull dynamically from the API and list the top 3 items.
 
 ### 2026-07-03 — Branding & Content Refresh
 

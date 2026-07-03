@@ -23,9 +23,13 @@ export interface Book {
 }
 
 export interface Thought {
-  id: number
-  text: string
+  id: string
+  title: string
   date: string
+  category: string
+  slug: string
+  excerpt: string
+  featured: boolean
 }
 
 export interface NavItem {
