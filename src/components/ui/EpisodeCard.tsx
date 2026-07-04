@@ -19,9 +19,6 @@ function EpisodeCard({ episode }: EpisodeCardProps) {
           alt={episode.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <span className="absolute top-3 left-3 bg-bg/80 backdrop-blur-sm text-xs text-accent font-semibold px-2.5 py-1 rounded-sm uppercase tracking-wider">
-          {episode.number}
-        </span>
       </div>
 
       <div className="p-4">
