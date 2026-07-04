@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingBag } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { navItems } from '../../data/navigation'
 
@@ -52,12 +52,18 @@ function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          {/* <div className="hidden lg:block">
-            <Button href="#newsletter" variant="primary" className="text-xs px-5 py-2.5">
-              Subscribe
-            </Button>
-          </div> */}
+          {/* Desktop Merch CTA */}
+          <div className="hidden lg:block">
+            <a
+              href="https://forever-human.myspreadshop.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-wider px-5 py-2.5 rounded-md bg-accent text-bg font-semibold hover:bg-accent/85 transition-colors duration-200"
+            >
+              <ShoppingBag size={15} />
+              Merch Store
+            </a>
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -92,11 +98,18 @@ function Navbar() {
                   {item.label}
                 </a>
               ))}
-              {/* <div className="pt-4 border-t border-border">
-                <Button href="#newsletter" variant="primary" className="w-full text-sm">
-                  Subscribe
-                </Button>
-              </div> */}
+              <div className="pt-4 border-t border-border">
+                <a
+                  href="https://forever-human.myspreadshop.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMobileMenu}
+                  className="inline-flex items-center justify-center gap-2 w-full text-sm uppercase tracking-wider px-5 py-3 rounded-md bg-accent text-bg font-semibold hover:bg-accent/85 transition-colors duration-200"
+                >
+                  <ShoppingBag size={16} />
+                  Merch Store
+                </a>
+              </div>
             </div>
           </motion.nav>
         )}
