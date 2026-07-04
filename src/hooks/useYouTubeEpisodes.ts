@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { Episode } from '../types/content'
 import { featuredEpisode as staticFeatured, episodes as staticEpisodes } from '../data/episodes'
+import { decodeHtmlEntities } from '../utils/decodeHtmlEntities'
 
 // ─── YouTube Episodes Hook ─────────────────────────────────────────────────────
 //
@@ -53,12 +54,19 @@ export function useYouTubeEpisodes(): UseYouTubeEpisodesResult {
           return
         }
 
-        const data: Episode[] = await res.json()
+        const raw: Episode[] = await res.json()
 
-        if (!Array.isArray(data) || data.length === 0) {
+        if (!Array.isArray(raw) || raw.length === 0) {
           // Unexpected shape or empty — keep static data
           return
         }
+
+        // Decode HTML entities the YouTube API returns (e.g. &#39; → ')
+        const data = raw.map((ep) => ({
+          ...ep,
+          title: decodeHtmlEntities(ep.title),
+          description: decodeHtmlEntities(ep.description),
+        }))
 
         if (cancelled) return
 
