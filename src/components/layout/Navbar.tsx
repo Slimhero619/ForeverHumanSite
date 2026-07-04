@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { navItems } from '../../data/navigation'
-import Button from '../ui/Button'
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -35,7 +34,7 @@ function Navbar() {
             <div className="w-9 h-9 border border-accent/60 rounded-sm items-center justify-center hidden">
               <span className="font-display text-lg text-accent leading-none">FH</span>
             </div>
-            <span className="font-display text-lg tracking-wider text-primary hidden sm:block">
+            <span className="font-display text-2xl sm:text-3xl md:text-4xl tracking-wider text-primary">
               FOREVER HUMAN
             </span>
           </a>

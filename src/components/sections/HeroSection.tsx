@@ -1,4 +1,4 @@
-import { Play, Music } from 'lucide-react'
+import { Play } from 'lucide-react'
 import Button from '../ui/Button'
 import AnimatedSection from '../ui/AnimatedSection'
 import heroBackground from '../../assets/images/hero-background.png'
@@ -57,9 +57,11 @@ function HeroSection() {
             <Button href="#latest-episode" variant="primary" icon={<Play size={16} />}>
               Watch Latest Episode
             </Button>
+            {/* TODO: Re-enable when podcast platforms are live
             <Button href="#" variant="secondary" icon={<Music size={16} />}>
               Listen on Spotify
             </Button>
+            */}
             <Button href="#about" variant="secondary">
               About the Show
             </Button>

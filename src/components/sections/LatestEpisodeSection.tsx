@@ -1,10 +1,33 @@
-import { MonitorPlay, Music, Headphones } from 'lucide-react'
-import { featuredEpisode } from '../../data/episodes'
+import { MonitorPlay } from 'lucide-react'
+import { featuredEpisode as staticFeaturedEpisode } from '../../data/episodes'
+import type { Episode } from '../../types/content'
 import Button from '../ui/Button'
 import SectionHeading from '../ui/SectionHeading'
 import AnimatedSection from '../ui/AnimatedSection'
 
-function LatestEpisodeSection() {
+// ─── Latest Episode Section ────────────────────────────────────────────────────
+// Displays the single "featured" episode in a large hero-style card.
+//
+// YouTube integration:
+//   The `episode` prop is provided by HomePage via the useYouTubeEpisodes hook.
+//   When YouTube data is available, this shows the newest video from the channel.
+//   When it's not (or during initial load), it falls back to the static data
+//   from src/data/episodes.ts.
+//
+// To change which episode is featured, see the comments in:
+//   - src/hooks/useYouTubeEpisodes.ts  (client-side splitting logic)
+//   - vite.config.ts                   (server-side API response order)
+// ────────────────────────────────────────────────────────────────────────────────
+
+interface LatestEpisodeSectionProps {
+  /** The episode to feature. Falls back to static data if not provided. */
+  episode?: Episode
+}
+
+function LatestEpisodeSection({ episode }: LatestEpisodeSectionProps) {
+  // Use the provided YouTube episode, or fall back to static placeholder data
+  const featuredEpisode = episode ?? staticFeaturedEpisode
+
   return (
     <section id="latest-episode" className="py-16 md:py-24" aria-labelledby="latest-episode-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,6 +80,7 @@ function LatestEpisodeSection() {
                 >
                   Watch on YouTube
                 </Button>
+                {/* TODO: Re-enable when podcast platforms are live
                 <Button
                   href={featuredEpisode.spotifyUrl}
                   variant="secondary"
@@ -73,6 +97,7 @@ function LatestEpisodeSection() {
                 >
                   Apple Podcasts
                 </Button>
+                */}
               </div>
             </div>
           </div>
