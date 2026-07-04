@@ -5,7 +5,7 @@ export const navItems: NavItem[] = [
   { label: 'Episodes', href: '#episodes' },
   { label: 'About', href: '#about' },
   { label: 'Books', href: '#books' },
-  { label: 'Contact', href: '#newsletter' },
+  { label: 'Contact', href: 'mailto:slimzztv@outlook.com' },
 ]
 
 export const socialLinks: SocialLink[] = [

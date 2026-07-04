@@ -55,7 +55,7 @@ The application follows a modular, reusable, and responsive structure:
   - **Books**: Custom horizontal slider highlighting books that changed the host's perspective.
   - **Latest Thoughts**: Dynamic card list loading the **latest 3 published thoughts** directly from Notion.
 - **All Thoughts Listing (`/thoughts`)**: Dedicated route showing all published thoughts queried from Notion. Features a return-to-home button, animations, categories, and loading/error feedback.
-- **Newsletter Sign-up**: A premium opt-in form with success state animations.
+- **Newsletter Sign-up**: A premium opt-in form with success state animations (temporarily hidden).
 - **Footer**: Unified navigation links, social icons (YouTube, Instagram, Email), and copyright.
 
 ---
@@ -74,6 +74,13 @@ The application follows a modular, reusable, and responsive structure:
 ---
 
 ## 📋 Changelog
+
+### 2026-07-04 — Newsletter & Navigation Update
+
+#### UI/UX Clean-up
+- Temporarily hid the `NewsletterSection` from the homepage to clean up page flow.
+- Commented out the "Subscribe" CTA buttons in both the desktop navbar and mobile navigation menus.
+- Re-routed the "Contact" navigation link from `#newsletter` to the mailto link (`mailto:slimzztv@outlook.com`) to prevent broken links.
 
 ### 2026-07-03 — Notion API Integration & Page Route
 

@@ -54,11 +54,11 @@ function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          {/* <div className="hidden lg:block">
             <Button href="#newsletter" variant="primary" className="text-xs px-5 py-2.5">
               Subscribe
             </Button>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Toggle */}
           <button
@@ -93,11 +93,11 @@ function Navbar() {
                   {item.label}
                 </a>
               ))}
-              <div className="pt-4 border-t border-border">
+              {/* <div className="pt-4 border-t border-border">
                 <Button href="#newsletter" variant="primary" className="w-full text-sm">
                   Subscribe
                 </Button>
-              </div>
+              </div> */}
             </div>
           </motion.nav>
         )}

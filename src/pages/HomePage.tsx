@@ -30,7 +30,7 @@ function HomePage() {
         </div>
       </section>
 
-      <NewsletterSection />
+      {/* <NewsletterSection /> */}
     </>
   )
 }
