@@ -19,10 +19,15 @@ npm run build
 ```
 
 ### 🔑 Environment Variables
-The application queries Notion via a serverless API endpoint. Set up the following in a `.env.local` file at the root:
+The application queries Notion and YouTube via serverless API endpoints. Set up the following in a `.env.local` file at the root:
 ```env
+# Notion API
 NOTION_TOKEN=your_notion_token_here
 NOTION_DATABASE_ID=your_notion_database_id_here
+
+# YouTube API
+YOUTUBE_API_KEY=your_youtube_api_key_here
+YOUTUBE_CHANNEL_ID=your_youtube_channel_id_here
 ```
 *(Note: These are kept strictly server-side and never exposed to the frontend browser bundle).*
 
