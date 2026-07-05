@@ -4,7 +4,6 @@ import EpisodeGridSection from '../components/sections/EpisodeGridSection'
 import TopicsSection from '../components/sections/TopicsSection'
 import QuoteSection from '../components/sections/QuoteSection'
 import AboutSection from '../components/sections/AboutSection'
-import GallerySection from '../components/sections/GallerySection'
 import BooksSection from '../components/sections/BooksSection'
 import ThoughtsSection from '../components/sections/ThoughtsSection'
 import { useYouTubeEpisodes } from '../hooks/useYouTubeEpisodes'
@@ -32,7 +31,6 @@ function HomePage() {
       <TopicsSection />
       <QuoteSection />
       <AboutSection />
-      <GallerySection />
 
       {/* Books + Thoughts side by side on desktop */}
       <section className="py-16 md:py-24">

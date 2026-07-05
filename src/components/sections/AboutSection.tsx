@@ -1,10 +1,10 @@
 import Button from '../ui/Button'
 import SectionHeading from '../ui/SectionHeading'
 import AnimatedSection from '../ui/AnimatedSection'
-import aboutPortrait from '../../assets/images/about-portrait.png'
-import galleryCity from '../../assets/images/gallery-city.png'
-import galleryStudio from '../../assets/images/gallery-studio.png'
-import galleryWorkspace from '../../assets/images/gallery-workspace.png'
+import aboutPortrait from '../../assets/images/about-portrait2.png'
+import codingNighttime from '../../assets/images/coding-nighttime.png'
+import brazilBackdrop from '../../assets/images/brazil-backdrop.png'
+import readingRooftop from '../../assets/images/reading-rooftop.png'
 
 function AboutSection() {
   return (
@@ -69,22 +69,22 @@ function AboutSection() {
               </div>
               <div className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={galleryCity}
-                  alt="City skyline"
+                  src={codingNighttime}
+                  alt="Drake coding at night"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={galleryStudio}
-                  alt="Podcast studio"
+                  src={brazilBackdrop}
+                  alt="Drake in Brazil"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={galleryWorkspace}
-                  alt="Workspace"
+                  src={readingRooftop}
+                  alt="Drake reading on a rooftop"
                   className="w-full h-full object-cover"
                 />
               </div>

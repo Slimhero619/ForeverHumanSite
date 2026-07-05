@@ -1,7 +1,7 @@
 import { Play } from 'lucide-react'
 import Button from '../ui/Button'
 import AnimatedSection from '../ui/AnimatedSection'
-import heroBackground from '../../assets/images/hero-background.png'
+import heroBackground from '../../assets/images/hero-background2.png'
 import foreverHumanLogo from '../../assets/images/main-logo-img.png'
 
 function HeroSection() {

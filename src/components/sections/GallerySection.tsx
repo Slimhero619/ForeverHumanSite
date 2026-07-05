@@ -1,10 +1,10 @@
 import AnimatedSection from '../ui/AnimatedSection'
-import galleryStudio from '../../assets/images/gallery-studio.png'
-import galleryCity from '../../assets/images/gallery-city.png'
-import galleryWorkspace from '../../assets/images/gallery-workspace.png'
+import brazilBackdrop from '../../assets/images/brazil-backdrop.png'
+import codingNighttime from '../../assets/images/coding-nighttime.png'
+import readingRooftop from '../../assets/images/reading-rooftop.png'
 import galleryBooks from '../../assets/images/gallery-books.png'
-import aboutPortrait from '../../assets/images/about-portrait.png'
-import heroBackground from '../../assets/images/hero-background.png'
+import aboutPortrait from '../../assets/images/about-portrait2.png'
+import heroBackground from '../../assets/images/hero-background2.png'
 import episodeThumbnail2 from '../../assets/images/episode-thumbnail-2.png'
 import episodeThumbnail4 from '../../assets/images/episode-thumbnail-4.png'
 
@@ -15,10 +15,10 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { src: galleryStudio, alt: 'Podcast studio setup', span: 'col-span-2 row-span-2' },
+  { src: brazilBackdrop, alt: 'Drake in Brazil', span: 'col-span-2 row-span-2' },
   { src: galleryBooks, alt: 'Book collection' },
-  { src: galleryWorkspace, alt: 'Planning workspace' },
-  { src: galleryCity, alt: 'City view' },
+  { src: readingRooftop, alt: 'Drake reading on a rooftop' },
+  { src: codingNighttime, alt: 'Drake coding at night' },
   { src: aboutPortrait, alt: 'Behind the scenes' },
   { src: heroBackground, alt: 'Golden hour' },
   { src: episodeThumbnail2, alt: 'On location' },

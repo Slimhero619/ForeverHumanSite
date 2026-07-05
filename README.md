@@ -75,6 +75,18 @@ The application follows a modular, reusable, and responsive structure:
 
 ## 📋 Changelog
 
+### 2026-07-05 — Image Refinement & Gallery Removal
+
+#### Asset Replacements
+- Replaced the hero background image with `hero-background2.png`.
+- Replaced the host portrait image with `about-portrait2.png` in the About section.
+- Replaced the studio and workspace images with `brazil-backdrop.png` and `reading-rooftop.png` in the About section grid.
+- Replaced the city image with the coding image `coding-nighttime.png` in the About section grid.
+
+#### UI/UX & Structure
+- Removed the `GallerySection` component from the homepage layout (`HomePage.tsx`) to eliminate duplicate image usage across the site.
+- Updated `GallerySection.tsx` configuration to align with the new image assets.
+
 ### 2026-07-04 — Newsletter & Navigation Update
 
 #### UI/UX Clean-up
