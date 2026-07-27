@@ -156,7 +156,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     const notion = new Client({ auth: token })
 
     await notion.pages.create({
-      parent: { database_id: databaseId },
+      parent: { type: 'data_source_id', data_source_id: databaseId },
       properties: {
         'Status': { select: { name: 'New' } },
         'Full Name': { title: [{ text: { content: fullName } }] },
@@ -176,7 +176,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ success: true }))
   } catch (err: any) {
-    console.error('[Creator Application API Error]', err.message || err)
+    console.error('[Creator Application API Error]', {
+      code: err.code || 'UNKNOWN',
+      message: err.message || String(err),
+      status: err.status || err.statusCode || undefined,
+    })
     res.writeHead(500, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ success: false, error: 'Failed to process application.' }))
   }

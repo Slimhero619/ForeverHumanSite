@@ -153,7 +153,7 @@ export default defineConfig(({ mode }) => {
 
                 const notion = new Client({ auth: creatorToken })
                 await notion.pages.create({
-                  parent: { database_id: creatorDatabaseId },
+                  parent: { type: 'data_source_id', data_source_id: creatorDatabaseId },
                   properties: {
                     'Status': { select: { name: 'New' } },
                     'Full Name': { title: [{ text: { content: fullName } }] },
@@ -173,7 +173,11 @@ export default defineConfig(({ mode }) => {
                 res.writeHead(200, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({ success: true }))
               } catch (err: any) {
-                console.error('[Creator Application Dev API]', err.message || err)
+                console.error('[Creator Application Dev API]', {
+                  code: err.code || 'UNKNOWN',
+                  message: err.message || String(err),
+                  status: err.status || err.statusCode || undefined,
+                })
                 res.writeHead(500, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({ success: false, error: err.message || 'Failed to process application.' }))
               }
