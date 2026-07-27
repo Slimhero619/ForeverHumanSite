@@ -1,8 +1,35 @@
+import { Link, useLocation } from 'react-router-dom'
 import { PlaySquare, Camera, Mail } from 'lucide-react'
 import { navItems } from '../../data/navigation'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
+  const location = useLocation()
+
+  function renderNavItem(item: { label: string; href: string }) {
+    const isRouteLink = item.href.startsWith('/')
+    const targetHref = item.href.startsWith('#') && location.pathname !== '/' ? `/${item.href}` : item.href
+
+    if (isRouteLink) {
+      return (
+        <Link
+          to={item.href}
+          className="text-sm text-secondary hover:text-primary transition-colors duration-200"
+        >
+          {item.label}
+        </Link>
+      )
+    }
+
+    return (
+      <a
+        href={targetHref}
+        className="text-sm text-secondary hover:text-primary transition-colors duration-200"
+      >
+        {item.label}
+      </a>
+    )
+  }
 
   return (
     <footer className="bg-card border-t border-border">
@@ -31,14 +58,7 @@ function Footer() {
               </h3>
               <ul className="flex flex-col gap-3">
                 {navItems.slice(0, 3).map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm text-secondary hover:text-primary transition-colors duration-200"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
+                  <li key={item.href}>{renderNavItem(item)}</li>
                 ))}
               </ul>
             </div>
@@ -48,14 +68,7 @@ function Footer() {
               </h3>
               <ul className="flex flex-col gap-3">
                 {navItems.slice(3).map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      className="text-sm text-secondary hover:text-primary transition-colors duration-200"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
+                  <li key={item.href}>{renderNavItem(item)}</li>
                 ))}
               </ul>
             </div>

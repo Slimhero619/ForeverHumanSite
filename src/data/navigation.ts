@@ -3,6 +3,7 @@ import type { NavItem, SocialLink } from '../types/content'
 export const navItems: NavItem[] = [
   { label: 'Home', href: '#hero' },
   { label: 'Episodes', href: '#episodes' },
+  { label: 'For Creators', href: '/creators' },
   { label: 'About', href: '#about' },
   { label: 'Books', href: '#books' },
   { label: 'Contact', href: 'mailto:slimzztv@outlook.com' },

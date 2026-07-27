@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ShoppingBag } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { navItems } from '../../data/navigation'
@@ -6,6 +7,7 @@ import { navItems } from '../../data/navigation'
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     function handleScroll() {
@@ -20,36 +22,64 @@ function Navbar() {
     setIsMobileMenuOpen(false)
   }
 
+  function getItemHref(href: string) {
+    if (href.startsWith('#') && location.pathname !== '/') {
+      return `/${href}`
+    }
+    return href
+  }
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
           ? 'bg-bg/80 backdrop-blur-xl border-b border-border/50'
           : 'bg-transparent'
-        }`}
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-3" aria-label="Forever Human home">
+          <Link to="/" className="flex items-center gap-3" aria-label="Forever Human home">
             <div className="w-9 h-9 border border-accent/60 rounded-sm items-center justify-center hidden">
               <span className="font-display text-lg text-accent leading-none">FH</span>
             </div>
             <span className="font-display text-2xl sm:text-3xl md:text-4xl tracking-wider text-primary">
               FOREVER HUMAN
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8" aria-label="Primary">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-sm text-secondary hover:text-primary transition-colors duration-200 uppercase tracking-wider"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const targetHref = getItemHref(item.href)
+              const isRouteLink = item.href.startsWith('/')
+
+              if (isRouteLink) {
+                const isActive = location.pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`text-sm uppercase tracking-wider transition-colors duration-200 ${
+                      isActive ? 'text-accent font-medium' : 'text-secondary hover:text-primary'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              }
+
+              return (
+                <a
+                  key={item.href}
+                  href={targetHref}
+                  className="text-sm text-secondary hover:text-primary transition-colors duration-200 uppercase tracking-wider"
+                >
+                  {item.label}
+                </a>
+              )
+            })}
           </nav>
 
           {/* Desktop Merch CTA */}
@@ -88,16 +118,37 @@ function Navbar() {
             aria-label="Mobile navigation"
           >
             <div className="px-4 py-6 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMobileMenu}
-                  className="text-base text-secondary hover:text-primary transition-colors duration-200 uppercase tracking-wider py-2"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) => {
+                const targetHref = getItemHref(item.href)
+                const isRouteLink = item.href.startsWith('/')
+
+                if (isRouteLink) {
+                  const isActive = location.pathname === item.href
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      onClick={closeMobileMenu}
+                      className={`text-base uppercase tracking-wider py-2 transition-colors duration-200 ${
+                        isActive ? 'text-accent font-medium' : 'text-secondary hover:text-primary'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                }
+
+                return (
+                  <a
+                    key={item.href}
+                    href={targetHref}
+                    onClick={closeMobileMenu}
+                    className="text-base text-secondary hover:text-primary transition-colors duration-200 uppercase tracking-wider py-2"
+                  >
+                    {item.label}
+                  </a>
+                )
+              })}
               <div className="pt-4 border-t border-border">
                 <a
                   href="https://forever-human.myspreadshop.com"

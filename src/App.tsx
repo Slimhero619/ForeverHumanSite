@@ -3,6 +3,8 @@ import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import HomePage from './pages/HomePage'
 import ThoughtsPage from './pages/ThoughtsPage'
+import CreatorsPage from './pages/CreatorsPage'
+import CreatorApplicationPage from './pages/CreatorApplicationPage'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/thoughts" element={<ThoughtsPage />} />
+            <Route path="/creators" element={<CreatorsPage />} />
+            <Route path="/creators/apply" element={<CreatorApplicationPage />} />
           </Routes>
         </main>
         <Footer />

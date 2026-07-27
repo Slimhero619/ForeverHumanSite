@@ -7,6 +7,7 @@ interface ButtonBaseProps {
   variant?: ButtonVariant
   className?: string
   icon?: React.ReactNode
+  disabled?: boolean
 }
 
 interface ButtonAsLink extends ButtonBaseProps {
@@ -15,7 +16,7 @@ interface ButtonAsLink extends ButtonBaseProps {
 }
 
 interface ButtonAsButton extends ButtonBaseProps {
-  onClick: () => void
+  onClick?: () => void
   href?: never
 }
 
@@ -30,9 +31,9 @@ const variantStyles: Record<ButtonVariant, string> = {
     'text-secondary hover:text-accent bg-transparent',
 }
 
-function Button({ children, variant = 'primary', className = '', icon, ...rest }: ButtonProps) {
+function Button({ children, variant = 'primary', className = '', icon, disabled, ...rest }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-sm text-sm tracking-wide transition-colors duration-200 cursor-pointer whitespace-nowrap'
+    'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-sm text-sm tracking-wide transition-colors duration-200 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
 
   const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${className}`
 
@@ -62,8 +63,9 @@ function Button({ children, variant = 'primary', className = '', icon, ...rest }
     <motion.button
       className={combinedStyles}
       onClick={'onClick' in rest ? rest.onClick : undefined}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      disabled={disabled}
+      whileHover={disabled ? undefined : { scale: 1.02 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
     >
       {content}
     </motion.button>

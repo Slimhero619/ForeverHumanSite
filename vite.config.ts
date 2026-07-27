@@ -20,10 +20,167 @@ export default defineConfig(({ mode }) => {
   const youtubeApiKey = env.YOUTUBE_API_KEY
   const youtubeChannelId = env.YOUTUBE_CHANNEL_ID
 
+  const creatorToken = env.NOTION_CREATOR_TOKEN
+  const creatorDatabaseId = env.NOTION_CREATOR_DATABASE_ID
+
   return {
     plugins: [
       react(),
       tailwindcss(),
+
+      // ─── Notion Creator Applications API Middleware ────────────────────
+      {
+        name: 'api-creator-application-middleware',
+        configureServer(server) {
+          server.middlewares.use('/api/creator-application', async (req, res) => {
+            if (req.method === 'OPTIONS') {
+              res.writeHead(200, {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type',
+              })
+              res.end()
+              return
+            }
+
+            if (req.method !== 'POST') {
+              res.writeHead(405, { 'Content-Type': 'application/json' })
+              res.end(JSON.stringify({ success: false, error: 'Method Not Allowed' }))
+              return
+            }
+
+            let bodyStr = ''
+            req.on('data', (chunk) => {
+              bodyStr += chunk.toString()
+            })
+
+            req.on('end', async () => {
+              try {
+                const data = bodyStr ? JSON.parse(bodyStr) : {}
+
+                // Honeypot Protection
+                if (data.website && typeof data.website === 'string' && data.website.trim() !== '') {
+                  res.writeHead(200, { 'Content-Type': 'application/json' })
+                  res.end(JSON.stringify({ success: true }))
+                  return
+                }
+
+                // Server-Side Field Validation
+                const fullName = typeof data.fullName === 'string' ? data.fullName.trim() : ''
+                const email = typeof data.email === 'string' ? data.email.trim() : ''
+                const creatorName = typeof data.creatorName === 'string' ? data.creatorName.trim() : ''
+                const profileLink = typeof data.profileLink === 'string' ? data.profileLink.trim() : ''
+                const creatorStage = typeof data.creatorStage === 'string' ? data.creatorStage.trim() : ''
+                const goal = typeof data.goal === 'string' ? data.goal.trim() : ''
+                const blockers = typeof data.blockers === 'string' ? data.blockers.trim() : ''
+                const serviceInterest = typeof data.serviceInterest === 'string' ? data.serviceInterest.trim() : ''
+                const entryPoint = typeof data.entryPoint === 'string' ? data.entryPoint.trim() : ''
+
+                const platforms = Array.isArray(data.platforms) ? data.platforms : []
+                const helpNeeded = Array.isArray(data.helpNeeded) ? data.helpNeeded : []
+
+                const VALID_STAGES = new Set([
+                  'Planning to start',
+                  'Recently started',
+                  'Creating consistently',
+                  'Active community',
+                  'Rebuilding or growing',
+                ])
+                const VALID_HELP = new Set([
+                  'Creator mindset',
+                  'Accountability & consistency',
+                  'Content direction',
+                  'Streaming workflow',
+                  'Discord setup',
+                  'Community structure',
+                  'Bots & commands',
+                  'Automation',
+                  'Technical setup',
+                  'Growth strategy',
+                  'Not sure yet',
+                ])
+                const VALID_SERVICES = new Set([
+                  'Creator Launch',
+                  'Creator Build',
+                  'Creator Partner',
+                  'Not sure yet',
+                ])
+                const VALID_ENTRY_POINTS = new Set([
+                  'Creator Launch',
+                  'Creator Build',
+                  'Creator Partner',
+                  'General Creator Application',
+                ])
+                const VALID_PLATFORMS = new Set([
+                  'Twitch',
+                  'YouTube',
+                  'TikTok',
+                  'Instagram',
+                  'Discord Community',
+                  'Other',
+                  'Not creating yet',
+                ])
+
+                const isEmailValid = email.length > 3 && email.length < 254 && email.includes('@')
+                const isNameValid = fullName.length > 0 && fullName.length <= 100
+                const isStageValid = VALID_STAGES.has(creatorStage)
+                const isServiceValid = VALID_SERVICES.has(serviceInterest)
+                const isEntryPointValid = VALID_ENTRY_POINTS.has(entryPoint)
+                const isGoalValid = goal.length > 0 && goal.length <= 2000
+                const isHelpValid = helpNeeded.length > 0 && helpNeeded.every((item: string) => VALID_HELP.has(item))
+                const isPlatformsValid = platforms.every((item: string) => VALID_PLATFORMS.has(item))
+
+                if (
+                  !isNameValid ||
+                  !isEmailValid ||
+                  !isStageValid ||
+                  !isServiceValid ||
+                  !isEntryPointValid ||
+                  !isGoalValid ||
+                  !isHelpValid ||
+                  !isPlatformsValid
+                ) {
+                  res.writeHead(400, { 'Content-Type': 'application/json' })
+                  res.end(JSON.stringify({ success: false, error: 'Invalid application data.' }))
+                  return
+                }
+
+                if (!creatorToken || !creatorDatabaseId) {
+                  res.writeHead(500, { 'Content-Type': 'application/json' })
+                  res.end(JSON.stringify({ success: false, error: 'Notion credentials are not configured.' }))
+                  return
+                }
+
+                const notion = new Client({ auth: creatorToken })
+                await notion.pages.create({
+                  parent: { database_id: creatorDatabaseId },
+                  properties: {
+                    'Status': { select: { name: 'New' } },
+                    'Full Name': { title: [{ text: { content: fullName } }] },
+                    'Email': { email: email },
+                    'Creator Name': { rich_text: [{ text: { content: creatorName } }] },
+                    'Platforms': { multi_select: platforms.map((p: string) => ({ name: p })) },
+                    'Profile Link': profileLink ? { url: profileLink } : { url: null },
+                    'Creator Stage': { select: { name: creatorStage } },
+                    'Help Needed': { multi_select: helpNeeded.map((h: string) => ({ name: h })) },
+                    '3–6 Month Goal': { rich_text: [{ text: { content: goal } }] },
+                    'Current Blockers': { rich_text: [{ text: { content: blockers } }] },
+                    'Service Interest': { select: { name: serviceInterest } },
+                    'Entry Point': { select: { name: entryPoint } },
+                  },
+                })
+
+                res.writeHead(200, { 'Content-Type': 'application/json' })
+                res.end(JSON.stringify({ success: true }))
+              } catch (err: any) {
+                console.error('[Creator Application Dev API]', err.message || err)
+                res.writeHead(500, { 'Content-Type': 'application/json' })
+                res.end(JSON.stringify({ success: false, error: err.message || 'Failed to process application.' }))
+              }
+            })
+          })
+        }
+      },
 
       // ─── Notion Thoughts API ─────────────────────────────────────────
       {
