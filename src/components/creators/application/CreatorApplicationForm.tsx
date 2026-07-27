@@ -163,10 +163,15 @@ function CreatorApplicationForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    console.log('[DEBUG] handleSubmit started')
     setSubmitError(null)
 
-    if (!validate()) return
+    if (!validate()) {
+      console.log('[DEBUG] validation failed', errors)
+      return
+    }
 
+    console.log('[DEBUG] validation passed, starting fetch')
     setIsSubmitting(true)
 
     try {
@@ -191,18 +196,22 @@ function CreatorApplicationForm() {
         }),
       })
 
+      console.log('[DEBUG] fetch completed, status:', res.status)
       const data = await res.json()
+      console.log('[DEBUG] response body:', data)
 
       if (!res.ok || !data.success) {
         throw new Error(data.error || 'Failed to submit application.')
       }
 
+      console.log('[DEBUG] success, transitioning to ApplicationSuccess')
       setIsSubmitted(true)
       window.scrollTo({ top: 100, behavior: 'smooth' })
     } catch (err: any) {
-      console.error('[Creator Application Submit Error]', err.message || err)
+      console.error('[DEBUG] catch block reached:', err.message || err)
       setSubmitError("We couldn't submit your application right now. Please try again.")
     } finally {
+      console.log('[DEBUG] finally block, setting isSubmitting = false')
       setIsSubmitting(false)
     }
   }
@@ -446,7 +455,7 @@ function CreatorApplicationForm() {
       {/* Submit Button & Disclaimer */}
       <div className="pt-4 text-center space-y-4">
         <Button
-          onClick={() => {}}
+          type="submit"
           variant="primary"
           icon={<Send size={16} />}
           className="w-full sm:w-auto min-w-[260px] py-4 text-base font-semibold"

@@ -8,6 +8,7 @@ interface ButtonBaseProps {
   className?: string
   icon?: React.ReactNode
   disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 
 interface ButtonAsLink extends ButtonBaseProps {
@@ -31,7 +32,7 @@ const variantStyles: Record<ButtonVariant, string> = {
     'text-secondary hover:text-accent bg-transparent',
 }
 
-function Button({ children, variant = 'primary', className = '', icon, disabled, ...rest }: ButtonProps) {
+function Button({ children, variant = 'primary', className = '', icon, disabled, type, ...rest }: ButtonProps) {
   const baseStyles =
     'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-sm text-sm tracking-wide transition-colors duration-200 cursor-pointer whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none'
 
@@ -61,6 +62,7 @@ function Button({ children, variant = 'primary', className = '', icon, disabled,
 
   return (
     <motion.button
+      type={type || 'button'}
       className={combinedStyles}
       onClick={'onClick' in rest ? rest.onClick : undefined}
       disabled={disabled}
