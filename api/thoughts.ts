@@ -1,5 +1,6 @@
+/// <reference types="node" />
 import { Client } from '@notionhq/client'
-import type { IncomingMessage, ServerResponse } from 'http'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   // Enable CORS

@@ -1,4 +1,5 @@
-import type { IncomingMessage, ServerResponse } from 'http'
+/// <reference types="node" />
+import type { IncomingMessage, ServerResponse } from 'node:http'
 
 // In-memory cache for YouTube responses on warm serverless instances.
 const YOUTUBE_CACHE_TTL_MS = 30 * 60 * 1000 // 30 minutes

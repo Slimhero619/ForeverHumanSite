@@ -1,5 +1,6 @@
+/// <reference types="node" />
 import { Client } from '@notionhq/client'
-import type { IncomingMessage, ServerResponse } from 'http'
+import type { IncomingMessage, ServerResponse } from 'node:http'
 
 // Valid Notion Option Sets
 const VALID_STAGES = new Set([
